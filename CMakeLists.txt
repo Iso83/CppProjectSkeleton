@@ -16,16 +16,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # =========================================================
-# Dependencies
+# CppCMake
 # =========================================================
 
 include(cmake/Dependencies.cmake)
 
 dependencies_fetch_cppcmake()
-
-# =========================================================
-# CppCMake
-# =========================================================
 
 cppcmake_project_initialize()
 
@@ -33,13 +29,39 @@ if(CPPCMAKE_PROJECT_ALREADY_REGISTERED)
     return()
 endif()
 
-cppcmake_githooks_precommit()
+cppcmake_githook_precommit()
 cppcmake_version_generate()
-cppcmake_project_enable_testing()
+cppcmake_test_setup()
+
+# =========================================================
+# Dependencies
+# =========================================================
+
+#
+# Add project dependencies here.
+#
+# Examples:
+#
+#   - FetchContent + cppcmake_dependency_make_available(...)
+#   - cppcmake_dependency_add_subdirectory(...)
+#
+# Optionally group dependency targets in the IDE using:
+#
+#   cppcmake_dependency_set_folder(...)
+#
 
 # =========================================================
 # Modules
 # =========================================================
 
-# cppcmake_module_add(engine/core)
-# cppcmake_module_add(demoApp)
+#
+# Register project modules here.
+#
+# Examples:
+#
+#   cppcmake_module_add(engine/core)
+#   cppcmake_module_add(engine/math)
+#
+#   cppcmake_module_add(apps/demo)
+#   cppcmake_module_add(apps/editor)
+#
